@@ -5,7 +5,8 @@
 #include "cryptoext/sha256.h"
 #include "curve25519.h"
 
-#define NUM_ITER 10000000
+#define NUM_ITER 1000
+//#define NUM_ITER 1
 
 #define RESET   "\033[0m"
 #define BLACK   "\033[30m"      /* Black */
@@ -79,13 +80,14 @@ int main()
     //uint8_t digest[SHA256_DIGEST_SIZE];
     int i;
 
-    char data[] = "decker";
+    char data[1048576];
     int len = sizeof(data) / sizeof(data[0]) - 1;
     printf("Data len: %d\n", len);
 
     char hashstr[(256 >> 3) * 2 + 1];
     uint8_t hash[256 >> 3];
 
+    memset(data, 0xDE, sizeof(data));
 
     struct timeval  tv1, tv2;
 
@@ -125,7 +127,8 @@ int main()
          (double) (tv2.tv_sec - tv1.tv_sec));
 
     //printf("d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592\n");
-    printf("bb7aa507ee307613a18d2b1eabb42e76a5e3ff8a00d021b738f6a5a8f299ed29\n");
+    //printf("bb7aa507ee307613a18d2b1eabb42e76a5e3ff8a00d021b738f6a5a8f299ed29\n");
+    printf("860f58999c792790db1b966865b7897da0a1fb37377bf8469f99472d6f388f3a\n");
 
 
     sleep(1);

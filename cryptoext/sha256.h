@@ -7,7 +7,7 @@
 
 #define SHA256_DIGEST_SIZE 32
 #define SHA256_WORDS 8
-#define SHA_TYPE 1          // 1 = AVX, 2 = SSE4, 3 = RORX, 4 = RORX8
+#define SHA_TYPE 3          // 1 = AVX, 2 = SSE4, 3 = RORX, 4 = RORX8
 
 typedef struct {
 	uint64_t totalLength;
