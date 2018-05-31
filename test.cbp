@@ -47,6 +47,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="cryptoext/sha256.h" />
+		<Unit filename="curve25519.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="curve25519.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>

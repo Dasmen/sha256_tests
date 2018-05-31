@@ -3,6 +3,7 @@
 #include <sys/time.h>
 #include <unistd.h>  // for sleep
 #include "cryptoext/sha256.h"
+#include "curve25519.h"
 
 int32_t init_hexbytes_noT(char *hexbytes,uint8_t *message,long len);
 void vcalc_sha256_hardware(char hashstr[(256 >> 3) * 2 + 1],uint8_t hash[256 >> 3],uint8_t *src,int32_t len);
@@ -67,21 +68,34 @@ int main()
 
 
     struct timeval  tv1, tv2;
-    gettimeofday(&tv1, NULL);
 
+    printf("Hardware SHA256:\n");
+
+    gettimeofday(&tv1, NULL);
     for (i=0; i < 10000000; i++) {
         vcalc_sha256_hardware(hashstr, hash, (uint8_t *) data, len);
     }
-
     gettimeofday(&tv2, NULL);
-
     printf("%s\n", hashstr);
-    //printf("d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592\n");
-    printf("bb7aa507ee307613a18d2b1eabb42e76a5e3ff8a00d021b738f6a5a8f299ed29\n");
-
     printf ("Total time = %f seconds\n",
          (double) (tv2.tv_usec - tv1.tv_usec) / 1000000 +
          (double) (tv2.tv_sec - tv1.tv_sec));
+
+    printf("Software SHA256:\n");
+
+    gettimeofday(&tv1, NULL);
+    for (i=0; i < 10000000; i++) {
+        vcalc_sha256(hashstr, hash, (uint8_t *) data, len);
+    }
+    gettimeofday(&tv2, NULL);
+    printf("%s\n", hashstr);
+    printf ("Total time = %f seconds\n",
+         (double) (tv2.tv_usec - tv1.tv_usec) / 1000000 +
+         (double) (tv2.tv_sec - tv1.tv_sec));
+
+    //printf("d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592\n");
+    printf("bb7aa507ee307613a18d2b1eabb42e76a5e3ff8a00d021b738f6a5a8f299ed29\n");
+
 
     sleep(1);
     return 0;
