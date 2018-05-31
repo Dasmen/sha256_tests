@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/time.h>
+#include <unistd.h>  // for sleep
 #include "cryptoext/sha256.h"
 
 int32_t init_hexbytes_noT(char *hexbytes,uint8_t *message,long len);
@@ -51,7 +52,7 @@ int main()
 
     char data[] = "decker";
     int len = sizeof(data) / sizeof(data[0]) - 1;
-    printf("Data len: %ld\n", len);
+    printf("Data len: %d\n", len);
 
     char hashstr[(256 >> 3) * 2 + 1];
     uint8_t hash[256 >> 3];
@@ -61,7 +62,7 @@ int main()
     gettimeofday(&tv1, NULL);
 
     for (i=0; i < 10000000; i++) {
-        vcalc_sha256(hashstr, hash, data, len);
+        vcalc_sha256(hashstr, hash, (uint8_t *) data, len);
     }
 
     gettimeofday(&tv2, NULL);
