@@ -11,7 +11,7 @@ Clone repo:
 	
 - Start test:
 
-```make -j$(nproc) && bin/Release/test```
+```make clean && make -j$(nproc) && bin/Release/test```
 
 Get results like this:
 
