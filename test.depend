@@ -1,0 +1,16 @@
+# depslib dependency file v1.0
+1527773582 source:/home/decker/ssd_nvme/sha256_test/test/main.c
+	<stdio.h>
+	<stdlib.h>
+	<sys/time.h>
+	"cryptoext/sha256.h"
+
+1527773596 /home/decker/ssd_nvme/sha256_test/test/cryptoext/sha256.h
+	<stdint.h>
+	<stddef.h>
+	<endian.h>
+
+1527768350 source:/home/decker/ssd_nvme/sha256_test/test/cryptoext/sha256.c
+	<string.h>
+	"sha256.h"
+

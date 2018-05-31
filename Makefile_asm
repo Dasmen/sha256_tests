@@ -1,0 +1,11 @@
+SHAASM	:= cryptoext
+YASM	:= yasm -f x64 -f elf64 -D LINUX
+SHA256ASM_SRCS = $(SHAASM)/intel/sha256_avx.asm $(SHAASM)/intel/sha256_sse4.asm $(SHAASM)/intel/sha256_avx2_rorx2.asm $(SHAASM)/intel/sha256_avx2_rorx8.asm
+SHA256ASM_OBJS = $(SHA256ASM_SRCS:.asm=.o)
+
+$(info $(SHA256ASM_SRCS))
+$(info $(SHA256ASM_OBJS))
+
+allasm: $(SHA256ASM_OBJS)
+%.o: %.asm
+	$(YASM) -o $@ $<
