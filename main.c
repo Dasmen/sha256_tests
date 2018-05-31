@@ -5,6 +5,8 @@
 #include "cryptoext/sha256.h"
 #include "curve25519.h"
 
+#define NUM_ITER 10000000
+
 int32_t init_hexbytes_noT(char *hexbytes,uint8_t *message,long len);
 void vcalc_sha256_hardware(char hashstr[(256 >> 3) * 2 + 1],uint8_t hash[256 >> 3],uint8_t *src,int32_t len);
 
@@ -69,10 +71,21 @@ int main()
 
     struct timeval  tv1, tv2;
 
+    //1 = AVX, 2 = SSE4, 3 = RORX, 4 = RORX8
+    printf("Hardware SHA256 [type]: ");
+    switch (SHA_TYPE) {
+        case 1: printf("AVX"); break;
+        case 2: printf("SSE4"); break;
+        case 3: printf("RORX"); break;
+        case 4: printf("ROR8"); break;
+    }
+
+    printf("\n");
+
     printf("Hardware SHA256:\n");
 
     gettimeofday(&tv1, NULL);
-    for (i=0; i < 10000000; i++) {
+    for (i=0; i < NUM_ITER; i++) {
         vcalc_sha256_hardware(hashstr, hash, (uint8_t *) data, len);
     }
     gettimeofday(&tv2, NULL);
@@ -84,7 +97,7 @@ int main()
     printf("Software SHA256:\n");
 
     gettimeofday(&tv1, NULL);
-    for (i=0; i < 10000000; i++) {
+    for (i=0; i < NUM_ITER; i++) {
         vcalc_sha256(hashstr, hash, (uint8_t *) data, len);
     }
     gettimeofday(&tv2, NULL);
